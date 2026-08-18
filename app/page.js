@@ -1,69 +1,69 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { Jost, Mrs_Saint_Delafield } from 'next/font/google';
+import styles from './page.module.css';
+
+const jost = Jost({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  variable: '--font-sans',
+});
+
+const script = Mrs_Saint_Delafield({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-script',
+});
+
+const NAV_LINKS = ['Hotel', 'Culinary', 'Activities', ' About Us'];
+
+const WORD = ['H', 'O', 'M', 'E'];
+const PEEPHOLE_INDEX = 1;
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.js</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className={`${jost.variable} ${script.variable} ${styles.hero}`}>
+     
+      <div className={styles.stage} aria-hidden="true">
+        <div className={styles.backdrop} />
+      </div>
+      <div className={styles.scrim} aria-hidden="true" />
+
+      <nav className={styles.nav}>
+        <span className={styles.wordmark}>Lala Phansi Lodge</span>
+
+        <ul className={styles.navLinks}>
+          {NAV_LINKS.map((label) => (
+            <li key={label}>
+              <a href="#">{label}</a>
+            </li>
+          ))}
+        </ul>
+
+        <div className={styles.navRight}>
+          <a href="#" className={styles.navUtility}>FAQ</a>
+          <a href="#" className={styles.navUtility}>Contact</a>
+          <button type="button" className={styles.langSwitch}>
+            EN <span className={styles.chevron}>⌄</span>
+          </button>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </nav>
+
+      <div className={styles.content}>
+        <p className={styles.eyebrow}>Welcome</p>
+
+        <div className={styles.word} aria-label="Home">
+          {WORD.map((letter, i) =>
+            i === PEEPHOLE_INDEX ? (
+              <span key={i} className={styles.peephole} aria-hidden="true" />
+            ) : (
+              <span key={i} className={styles.letter}>
+                {letter}
+              </span>
+            )
+          )}
         </div>
-      </main>
-    </div>
+
+        <p className={styles.script}>at Lala Phansi Lodge.</p>
+      </div>
+    </main>
   );
 }
